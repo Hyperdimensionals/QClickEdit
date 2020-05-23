@@ -8,7 +8,8 @@ import QClickEdit
 
 class Examples(QWidget):
     def __init__(self, parent=None):
-        super(Examples, self).__init__(parent)
+        QWidget.__init__(self)
+
         self.layout = QVBoxLayout()
         self.setLayout(self.layout)
 
@@ -22,7 +23,9 @@ class Examples(QWidget):
         self.boxxx.addItem('aa')
         self.boxxx.setValue('aa')
 
-        self.layout.addWidget(QClickEdit.QLineEdit("Blorka", "Name", "Sr."))
+        self.name = QClickEdit.QLineEdit("Blorka", "Name", "Sr.")
+
+        self.layout.addWidget(self.name)
         self.layout.addWidget(self.temp)
         self.layout.addWidget(self.ontime)
         self.layout.addWidget(self.boxxx)
