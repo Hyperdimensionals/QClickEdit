@@ -70,6 +70,7 @@ class QClickEdit(QWidget):
         if type_of_field:
             self.layout.addWidget(QLabel(type_of_field + ": ", self))
 
+        self.destroyed.connect(lambda: self._registry.remove(self))
         self._registry.append(self)
 
         self._createInputWidget()
@@ -167,11 +168,6 @@ class QClickEdit(QWidget):
         """
         super(QClickEdit, self).focusOutEvent(event)
         self._freezeInputPrecheck()
-
-    def deleteLater(self):
-        """Deletes self from self._registry before running deleteLater()."""
-        self._registry.remove(self)
-        super(QClickEdit, self).deleteLater()
 
 
 class QSpinBox(QClickEdit):
