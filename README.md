@@ -2,7 +2,7 @@
 
 ## Description
 
-This module creates clickable text that switches to a Qt input widget when clicked upon, and reverts back to text when the widget loses focus.
+This module creates click-to-input text that switches to a Qt input widget when clicked upon, and reverts back to text when the widget loses focus.
 
 Input widgets currently supported: QSpinBox, QLineEdit, QTimeEdit, and QComboBox.
 
