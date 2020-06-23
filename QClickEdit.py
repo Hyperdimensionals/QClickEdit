@@ -113,6 +113,7 @@ class QClickEdit(QWidget):
         for ClickEdit_widget in self._registry:
             if (ClickEdit_widget.input_widget.isVisible()) and \
                (not ClickEdit_widget.input_widget.underMouse()):
+
                 ClickEdit_widget._showText()
 
     def _createTextWidget(self):
@@ -383,6 +384,8 @@ class QComboBox(QClickEdit):
         """Set value of QComboBox by Index"""
         self.input_widget.setCurrentIndex(index)
         self.text.setText(self.input_widget.currentText())
+    def getCurrentIndex(self):
+        return self.input_widget.currentIndex()
     def removeIndex(self, index):
         self.input_widget.removeItem(index)
 
