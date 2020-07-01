@@ -176,6 +176,11 @@ class QSpinBox(QClickEdit):
 
     Text displayed becomes QSpinBox field when clicked upon and back to 'flat'
     text when clicked away from.
+
+    Arguments:
+    current_value -- integer for QSpinBox to display initially
+    type_of_field -- if included, this string will precede text/input field
+    suffix -- if included, this string will appear after text/input field
     """
 
     def __init__(self, current_value, type_of_field=False, suffix=False):
@@ -212,6 +217,11 @@ class QLineEdit(QClickEdit):
 
     Text displayed becomes QLineEdit field when clicked upon and back to 'flat'
     text when clicked away from.
+
+    Arguments:
+    current_value -- string to display initially
+    type_of_field -- if included, this string will precede text/input field
+    suffix -- if included, this string will appear after text/input field
     """
 
     def __init__(self, current_value, type_of_field=False, suffix=False):
@@ -249,6 +259,10 @@ class QTimeEdit(QClickEdit):
 
     Text displayed becomes QTimeEdit field when clicked upon and back to 'flat'
     text when clicked away from.
+
+    Arguments:
+    current_time -- Accepts datetime.time or QTime object
+    type_of_field -- if included, this string will precede text/input field
     """
 
     def __init__(self, current_time, type_of_field=False,
