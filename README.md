@@ -2,7 +2,7 @@
 
 ## Description
 
-This module creates click-to-input text that switches to a Qt input widget when clicked upon, and reverts back to text when the widget loses focus.
+This Qt for Python (PySide2) module creates click-to-input text that switches to a Qt input widget when clicked upon, and reverts back to text when the widget loses focus.
 
 Input widgets currently supported: <b>QSpinBox</b>, <b>QLineEdit</b>, <b>QTimeEdit</b>, and <b>QComboBox</b>.
 
