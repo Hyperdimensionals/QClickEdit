@@ -8,7 +8,7 @@ setuptools.setup(
     version="1.0.0",
     author="Brendan Krueger",
     author_email="hyperdimensionalplants@gmail.com",
-    description="Qt widget for text that becomes a Qt input widget when clicked on. ",
+    description="Qt widget for text that becomes a Qt input widget when clicked on.",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/Hyperdimensionals/QClickEdit",
