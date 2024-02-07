@@ -8,8 +8,10 @@ Input widgets currently supported: <b>QSpinBox</b>, <b>QLineEdit</b>, <b>QTimeEd
 
 ## Using this Module
 
-If importing the entire module into a project, QClickEdit widgets can be initiated via attributes of this module. For example, a QClickEdit using a QSpinBox is created with this code:
+If importing the entire module into a project, QClickEdit widgets can be initiated via attributes under the main module of the same name. For example, a QClickEdit using a QSpinBox is created with this code:
 ```python
+import QClickEdit.QClickEdit as QClickEdit
+
 QClickEdit.QSpinBox(20, "Temperature", "C")
 ```
 
