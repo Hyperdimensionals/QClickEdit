@@ -45,7 +45,7 @@ class QClickEdit(QWidget):
     _top_widgets_modified = []
 
     def __init__(self, current_value, type_of_field=False, suffix=False,
-                 parent=None):
+                 bold=False, parent=None):
         """Arguments:
 
         current_value -- The desired default value of the input widget
@@ -68,7 +68,10 @@ class QClickEdit(QWidget):
         self.layout.setMargin(0)
         self.layout.setContentsMargins(0, 0, 0, 0)
         if type_of_field:
-            self.layout.addWidget(QLabel(type_of_field + ": ", self))
+            tof = QLabel(type_of_field + ": ", self)
+            if bold:
+                tof.setStyleSheet('font-weight: bold')
+            self.layout.addWidget(tof)
 
         self.destroyed.connect(lambda: self._registry.remove(self))
         self._registry.append(self)
@@ -170,6 +173,13 @@ class QClickEdit(QWidget):
         super(QClickEdit, self).focusOutEvent(event)
         self._freezeInputPrecheck()
 
+    #####################
+    # Public Functions ###
+    #####################
+    def setSuffix(self, suffix):
+        """Set string that will follow displayed value"""
+        self.setValue(self.getValue(), suffix)
+
 
 class QSpinBox(QClickEdit):
     """QSpinBox QClickEdit object.
@@ -183,10 +193,21 @@ class QSpinBox(QClickEdit):
     suffix -- if included, this string will appear after text/input field
     """
 
-    def __init__(self, current_value, type_of_field=False, suffix=False):
+    def __init__(self, current_value, type_of_field=False, suffix=False,
+                 maximum=100, minimum=0, **kwargs):
         self.widget_ = SpinBox
         QClickEdit.__init__(self, current_value, type_of_field, suffix,
                             parent=None)
+
+        # Execute any kwargs as methods of input widget
+        # NOT YET IMPLEMENTED OR TESTED ON ALL QCLIKEDEDITS
+        for key, value in kwargs.items():
+            widget_func = self.input_widget.__getattribute__(key)
+            widget_func(value)
+
+        self.input_widget.setMaximum(maximum)
+        self.input_widget.setMinimum(minimum)
+        self.input_widget.setValue(current_value)
 
     # Private Functions #
 
@@ -204,8 +225,11 @@ class QSpinBox(QClickEdit):
     def getValue(self):
         """Returns the current value"""
         return self.input_widget.value()
-    def setValue(self, value):
+    def setValue(self, value, suffix=False):
         """Sets the current value"""
+        if suffix:
+            self.suffix = str(suffix)
+
         text = self._addSuffix(value)
         self.text.setText(text)
 
@@ -248,8 +272,11 @@ class QLineEdit(QClickEdit):
     def getValue(self):
         """Returns the current value"""
         return self.input_widget.text()
-    def setValue(self, value):
+    def setValue(self, value, suffix=False):
         """Sets the current text"""
+        if suffix:
+            self.setSuffix(suffix)
+
         current_value = str(value)
         self.input_widget.setText(current_value)
 
@@ -309,16 +336,23 @@ class QTimeEdit(QClickEdit):
         elif value is False:
             self._current_value = QTime(0, 0, 0, 0)
         else:
-            raise TypeError("current_time must be datetime.time or QTime object, or set to False")
+            raise TypeError("current_time must be datetime.time or QTime "
+                            "object, or set to False")
 
     ####################
     # Public Functions #
     ####################
-    def getValue(self):
-        """Returns the currently selected time"""
+    def getValue(self, toPython=False):
+        """Returns the currently selected time
+        as QTime by default, or as datetime object if toPython is True"""
+        if toPython is True:
+            return self.input_widget.time().toPython()
         return self.input_widget.time()
-    def setValue(self, value):
+    def setValue(self, value, suffix=False):
         """Set the current time"""
+        if suffix:
+            self.setSuffix(suffix)
+
         self._inputCheck(value)
 
         self.text.setText(value.toString('h:mm:ss a'))
