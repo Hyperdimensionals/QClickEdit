@@ -3,8 +3,11 @@ import sys
 from PySide2.QtWidgets import QApplication, QWidget
 from PySide2.QtCore import QTime
 
-import QClickEdit
+# Import QClickEdit from parent folder
+from os import path
+sys.path.append( path.dirname( path.dirname( path.abspath(__file__) ) ) )
 
+import QClickEdit
 
 class Examples(QWidget):
     def __init__(self, parent=None):
@@ -38,6 +41,9 @@ if __name__ == '__main__':
 
     examples = Examples()
     examples.show()
+
+    print(examples.ontime.getValue())
+
 
     # Run main Loop
     sys.exit(app.exec_())

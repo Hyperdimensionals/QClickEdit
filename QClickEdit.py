@@ -402,13 +402,14 @@ class QComboBox(QClickEdit):
     def _inputCheck(self, values):
         items = []
 
-        if isinstance(values, list):
+        if isinstance(values, list) or isinstance(values, tuple):
             self._current_value = str(values[0])
             for v in values:
                 item = str(v)
                 items.append(item)
         else:
             items.append(str(values))
+            self._current_value = str(values)
 
         return items
 
